@@ -6,11 +6,11 @@
     "start": "node server.js"
   },
   "engines": {
-    "node": "23.x"
-    },
+    "node": "20.x"
+  },
   "author": "BLUE-DEMON",
   "license": "ISC",
-  "description": "",
+  "description": "Combined API built by Emmy Henz",
   "dependencies": {
     "express": "^4.17.1",
     "axios": "^1.7.9",
