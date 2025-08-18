@@ -26,16 +26,18 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+# First copy only package files for better caching
+COPY package*.json ./
 
 RUN npm install
 
+# Copy the rest of the files
 COPY . .
 
+# Install Playwright browsers
 ENV PLAYWRIGHT_BROWSERS_PATH=/app/.cache/ms-playwright
-RUN mkdir -p /app/.cache/ms-playwright && \
-    npx playwright install chromium && \
-    npx playwright install-deps
+RUN npx playwright install chromium
+RUN npx playwright install-deps
 
 EXPOSE 10000
 
