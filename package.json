@@ -4,9 +4,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "postinstall": "playwright install chromium",
-    "heroku-prebuild": "PLAYWRIGHT_BROWSERS_PATH=/app/.cache/ms-playwright npx playwright install chromium",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install:playwright": "npx playwright install --with-deps chromium",
+    "postinstall": "npm run install:playwright"
   },
   "engines": {
     "node": "20.x",
@@ -26,9 +25,5 @@
     "playwright": "^1.42.0",
     "open-google-translator": "^1.0.5",
     "@web-std/file": "^1.0.0"
-  },
-  "cacheDirectories": [
-    ".cache",
-    ".cache/ms-playwright"
-  ]
+  }
 }
