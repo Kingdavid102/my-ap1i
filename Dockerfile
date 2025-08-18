@@ -1,26 +1,54 @@
-# Use official Playwright base image (comes with Chromium, Firefox, WebKit + deps)
-FROM mcr.microsoft.com/playwright:v1.46.1-jammy
+FROM node:20-bullseye
 
-# Set working directory
+# Install system dependencies for Playwright
+RUN apt-get update && apt-get install -y \
+    git \
+    libasound2 \
+    libatk-bridge2.0-0 \
+    libatk1.0-0 \
+    libcups2 \
+    libdbus-1-3 \
+    libdrm2 \
+    libgbm-dev \
+    libglib2.0-0 \
+    libnspr4 \
+    libnss3 \
+    libpango-1.0-0 \
+    libx11-6 \
+    libxcb1 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxext6 \
+    libxfixes3 \
+    libxrandr2 \
+    libxshmfence1 \
+    xvfb \
+    --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
-# Copy only package files first (for caching)
-COPY package*.json ./
+# Copy package files first for better caching
+COPY package.json package-lock.json ./
 
-# Install dependencies
+# Install node dependencies
 RUN npm install
 
-# Copy the rest of your code
+# Install Playwright browsers before copying the rest of the app
+RUN npx playwright install --with-deps chromium
+
+# Copy the rest of the application
 COPY . .
 
-# Make sure screenshots dir exists
-RUN mkdir -p /app/screenshots && chown -R pwuser:pwuser /app
+# Set environment variables for Playwright
+ENV PLAYWRIGHT_BROWSERS_PATH=/app/.cache/ms-playwright
 
-# Run as non-root user (Playwright image uses pwuser)
-USER pwuser
+# Ensure the cache directory exists
+RUN mkdir -p /app/.cache/ms-playwright
 
-# Expose Heroku port
-EXPOSE 3000
+# Install any additional dependencies
+RUN npx playwright install-deps
 
-# Start the server
+EXPOSE $PORT
+
 CMD ["node", "server.js"]
