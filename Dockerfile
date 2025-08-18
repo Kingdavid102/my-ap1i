@@ -34,20 +34,22 @@ COPY package.json package-lock.json ./
 # Install node dependencies
 RUN npm install
 
-# Install Playwright browsers before copying the rest of the app
-RUN npx playwright install --with-deps chromium
+# Set environment variables for Playwright
+ENV PLAYWRIGHT_BROWSERS_PATH=/app/.cache/ms-playwright
+
+# Create cache directory
+RUN mkdir -p /app/.cache/ms-playwright && \
+    chown -R node:node /app/.cache
+
+# Install Playwright with chromium
+RUN npx playwright install chromium && \
+    npx playwright install-deps
 
 # Copy the rest of the application
 COPY . .
 
-# Set environment variables for Playwright
-ENV PLAYWRIGHT_BROWSERS_PATH=/app/.cache/ms-playwright
-
-# Ensure the cache directory exists
-RUN mkdir -p /app/.cache/ms-playwright
-
-# Install any additional dependencies
-RUN npx playwright install-deps
+# Run as non-root user
+USER node
 
 EXPOSE $PORT
 
