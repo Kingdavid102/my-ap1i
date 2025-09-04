@@ -1,29 +1,28 @@
 {
-  "name": "HENZ-ENDPOINTS",
+  "name": "BLUE-ENDPOINTS",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "install:playwright": "npx playwright install --with-deps chromium",
-    "postinstall": "npm run install:playwright"
+    "start": "node server.js"
   },
   "engines": {
-    "node": "20.x",
-    "npm": "9.x"
-  },
-  "author": "EmmyHenz",
+    "node": "23.x"
+    },
+  "author": "BLUE-DEMON",
   "license": "ISC",
-  "description": "Combined API built by Emmy Henz",
+  "description": "",
   "dependencies": {
-    "express": "^4.18.2",
+    "express": "^4.17.1",
     "axios": "^1.7.9",
     "cors": "^2.8.5",
     "cheerio": "^1.0.0",
+    "form-data": "latest",
     "yt-search": "^2.10.3",
     "js-confuser": "^2.0.0",
+    "mongodb": "^6.17.0",
     "tinyurl-api": "^1.0.1",
-    "playwright": "^1.42.0",
-    "open-google-translator": "^1.0.5",
-    "@web-std/file": "^1.0.0"
+    "dotenv": "^16.5.0",
+    "playwright": "latest",
+    "open-google-translator": "^1.0.5"
   }
 }
