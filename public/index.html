@@ -1208,7 +1208,7 @@
             },
             {
                 name: "Font",
-                path: "/api/font?text=Blue%20demon",
+                path: "/api/font?text=Emmy%20henz",
                 method: "GET",
                 params: ["text"],
                 description: "Generate different fonts",
@@ -1424,7 +1424,7 @@
             },
             {
                 name: "TinyURL",
-                path: "/api/tinyurl?url=https://api-x-demon-dev.hf.space",
+                path: "/api/tinyurl?url=https://api-x-henz-dev.hf.space",
                 method: "GET",
                 params: ["url"],
                 description: "Shorten long URLs for easy sharing",
@@ -1686,9 +1686,9 @@
                         </div>
                     ` : '<p style="color: var(--text-secondary); font-size: 0.8rem; margin: 1rem 0;">No parameters required</p>'}
                     <div class="api-actions">
-                        <button class="btn btn-primary" onclick="openTestModal('${api.name}', '${api.path}', '${api.method}', '${JSON.stringify(api.params)}', '${api.description}')">
-                            🧪 Test API
-                        </button>
+                        <button class="btn btn-primary" onclick="window.open('${baseURL}${api.path}', '_blank')">
+    🧪 Test API
+</button>
                         <button class="btn btn-outline" onclick="copyURL('${api.path}')">
                             📋 Copy URL
                         </button>
